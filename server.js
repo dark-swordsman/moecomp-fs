@@ -1,4 +1,3 @@
-const fs = require("fs");
 const multer = require("multer");
 const express = require("express");
 const crypto = require("crypto");
@@ -33,6 +32,14 @@ server.post("/upload", upload.single("file"), (req, res) => {
     success: true,
     filename: req.file.filename,
   });
+});
+
+server.get("/images/:filename", (req, res) => {
+  res.sendFile(
+    `${STORAGE_DIRECTORY}${STORAGE_DIRECTORY[STORAGE_DIRECTORY.length - 1] === "/" ? "" : "/"}${
+      req.params.filename
+    }`
+  );
 });
 
 // config
