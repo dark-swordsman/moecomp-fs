@@ -6,6 +6,8 @@ const crypto = require("crypto");
 require("dotenv").config();
 const { STORAGE_DIRECTORY, PORT } = process.env;
 
+// multer and express config
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, STORAGE_DIRECTORY),
   filename: (req, file, cb) => cb(null, `${crypto.randomUUID()}.png`),
