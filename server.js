@@ -1,8 +1,40 @@
-const server = require("express")();
-const port = 23210;
+const fs = require("fs");
+const multer = require("multer");
+const express = require("express");
+const crypto = require("crypto");
 
-// fs with directory
+require("dotenv").config();
+const { STORAGE_DIRECTORY, PORT } = process.env;
 
-server.post("/upload", (req, res) => {});
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, STORAGE_DIRECTORY),
+  filename: (req, file, cb) => cb(null, `${crypto.randomUUID()}.png`),
+});
 
-server.listen(port, () => console.log(`File server running on ${port}`));
+const fileFilter = (req, file, cb) => {
+  const allowedMIMEs = ["image/png"];
+
+  if (allowedMIMEs.includes(file.mimetype)) {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
+const server = express();
+const upload = multer({ dest: STORAGE_DIRECTORY, fileFilter, storage });
+
+// routes
+
+server.post("/upload", upload.single("file"), (req, res) => {
+  res.json({
+    success: true,
+    filename: req.file.filename,
+  });
+});
+
+// config
+
+server.use(express.json());
+
+server.listen(PORT, () => console.log(`File server running on ${PORT}`));
