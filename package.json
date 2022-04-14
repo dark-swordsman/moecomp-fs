@@ -1,0 +1,22 @@
+{
+  "name": "moecomp-fs",
+  "version": "0.0.0",
+  "description": "file server for moecomp",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dark-swordsman/moecomp-fs.git"
+  },
+  "author": "Kyle Barr",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dark-swordsman/moecomp-fs/issues"
+  },
+  "homepage": "https://github.com/dark-swordsman/moecomp-fs#readme",
+  "dependencies": {
+    "express": "^4.17.3"
+  }
+}
